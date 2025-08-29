@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import * as path from 'path';
-import * as fs from 'fs';
 import * as crypto from 'crypto';
 
 // Store temporary token mappings
@@ -24,9 +23,6 @@ export async function GET(request: Request) {
 
     // Determine file extension and appropriate folder
     const fileExt = path.extname(key).toLowerCase();
-    const storagePath = fileExt === '.tiff' || fileExt === '.tif' 
-      ? TIFF_STORAGE_PATH 
-      : PNG_STORAGE_PATH;
 
     // Create a unique token for this file
     const token = crypto.randomBytes(16).toString('hex');

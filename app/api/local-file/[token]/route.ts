@@ -6,12 +6,16 @@ import * as fs from 'fs';
 // In a real app, you'd use a database or Redis for this
 // This is just for demonstration purposes
 declare global {
-  var tokenMappings: Map<string, { key: string, expiry: number }>;
+  namespace NodeJS {
+    interface Global {
+      tokenMappings: Map<string, { key: string, expiry: number }>;
+    }
+  }
 }
 
 // Initialize global token mappings if it doesn't exist
-if (!global.tokenMappings) {
-  global.tokenMappings = new Map();
+if (!(global as any).tokenMappings) {
+  (global as any).tokenMappings = new Map();
 }
 
 // Local storage paths
@@ -26,7 +30,8 @@ export async function GET(
     const { token } = params;
     
     // Check if token exists and is valid
-    const mapping = global.tokenMappings.get(token);
+    const globalWithMap = global as any;
+    const mapping = globalWithMap.tokenMappings.get(token);
     if (!mapping) {
       return NextResponse.json(
         { error: 'Invalid or expired token' },
@@ -36,7 +41,7 @@ export async function GET(
     
     // Check if token is expired
     if (mapping.expiry < Date.now()) {
-      global.tokenMappings.delete(token);
+      globalWithMap.tokenMappings.delete(token);
       return NextResponse.json(
         { error: 'Token expired' },
         { status: 403 }
