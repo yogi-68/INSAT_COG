@@ -118,7 +118,7 @@ export default function About() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Technology</h4>
               <ul className="space-y-2">
-                <li className="text-gray-400">AWS S3</li>
+                <li className="text-gray-400">Cloud Storage</li>
                 <li className="text-gray-400">Cloud-Optimized GeoTIFF</li>
                 <li className="text-gray-400">WebAssembly</li>
                 <li className="text-gray-400">GDAL</li>

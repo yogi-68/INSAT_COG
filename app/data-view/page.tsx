@@ -62,28 +62,18 @@ export default function DataView() {
     if (!level || !time) return;
     setLoading(true);
     try {
-      const response = await fetch(`/api/s3-files?level=${level}&time=${time}`, {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' },
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to fetch files');
-      }
-      const data = await response.json();
-      if (data.files && data.files.length > 0) {
-        const fileInfo = data.files.map((file: any) => ({
-          url: file.url,
-          band: file.band,
-          filename: file.filename
-        }));
-        router.push(`/visualizer?files=${encodeURIComponent(JSON.stringify(fileInfo))}`);
-      } else {
-        alert('No files found for selected criteria');
-      }
+      // For now, redirect to visualizer with sample data
+      const sampleFileInfo = [
+        {
+          url: '/sample-data/sample.tif',
+          band: 'MIR',
+          filename: `sample_${level}_${time}.tif`
+        }
+      ];
+      router.push(`/visualizer?files=${encodeURIComponent(JSON.stringify(sampleFileInfo))}`);
     } catch (error) {
       console.error('Error:', error);
-      alert(error instanceof Error ? error.message : 'Failed to fetch files. Please try again.');
+      alert('Feature coming soon!');
     } finally {
       setLoading(false);
     }
@@ -163,7 +153,7 @@ export default function DataView() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Technology</h4>
               <ul className="space-y-2">
-                {['AWS S3', 'Cloud-Optimized GeoTIFF', 'WebAssembly', 'GDAL'].map((tech) => (
+                {['Cloud Storage', 'Cloud-Optimized GeoTIFF', 'WebAssembly', 'GDAL'].map((tech) => (
                   <li key={tech} className="text-gray-400">{tech}</li>
                 ))}
               </ul>

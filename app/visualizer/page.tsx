@@ -189,51 +189,13 @@ export default function Globe() {
     setLoadError(null);
     
     try {
-      const response = await fetch('/api/fetch-cog', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          filename: fileInfo.filename
-        })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to fetch COG file');
-      }
-
-      const arrayBuffer = await response.arrayBuffer();
-      if (!arrayBuffer || arrayBuffer.byteLength === 0) {
-        throw new Error('Received empty file from server');
-      }
-
-      const file = new File([arrayBuffer], fileInfo.filename, { type: 'image/tiff' });
-      
-      // Process the new TIFF file
-      if (map.current) {
-        // Ensure map style is loaded
-        if (!map.current.getStyle()) {
-          await new Promise<void>((resolve) => {
-            map.current!.once('style.load', () => resolve());
-          });
-        }
-        
-        await processTiff(file, map.current);
-        
-        // Update selected files after successful processing
-        setSelectedFiles(prev => {
-          const filtered = prev.filter(f => 
-            (typeof f === 'string' ? f : f.filename) !== fileInfo.filename
-          );
-          return [...filtered, fileInfo];
-        });
-      }
+      // For now, show a message that S3 functionality is not available
+      alert('S3 file loading is not available in this version. Please upload files directly.');
+      throw new Error('S3 functionality not available');
     } catch (error) {
       console.error('Error loading COG file:', error);
-      setLoadError(error instanceof Error ? error.message : 'Failed to load COG file');
-      throw error; // Propagate error to handleApplyBand
+      setLoadError(error instanceof Error ? error.message : 'S3 functionality not available');
+      throw error;
     }
   };
 

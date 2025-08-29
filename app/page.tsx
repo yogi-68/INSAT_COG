@@ -75,7 +75,7 @@ export default function Home() {
                 <div className="grid grid-cols-2 gap-6">
                   <div className="flex items-center space-x-3">
                     <div className="w-3 h-3 bg-indigo-600 rounded-full"></div>
-                    <span className="text-gray-800 text-lg">AWS S3</span>
+                    <span className="text-gray-800 text-lg">Cloud Storage</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-3 h-3 bg-indigo-600 rounded-full"></div>
@@ -135,7 +135,7 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Technology</h4>
               <ul className="space-y-2">
-                <li className="text-gray-400">AWS S3</li>
+                <li className="text-gray-400">Cloud Storage</li>
                 <li className="text-gray-400">Cloud-Optimized GeoTIFF</li>
                 <li className="text-gray-400">WebAssembly</li>
                 <li className="text-gray-400">GDAL</li>
