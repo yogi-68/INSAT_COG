@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     // Execute Python script with proper path handling
     const scriptPath = path.join(process.cwd(), 'app', 'scripts', 'tiff_csv.py')
     
-    return new Promise(async (resolve) => {
+    return new Promise<NextResponse>(async (resolve) => {
       let pythonOutput = ''
       let pythonError = ''
 
