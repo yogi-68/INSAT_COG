@@ -38,3 +38,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large temporary files
+public/temp_png/
+public/temp_tiff/
+*.png
+*.tif
+*.tiff
+*.aux.xml
